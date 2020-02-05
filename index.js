@@ -1,4 +1,4 @@
-const { Engine, Render, Runner, World, Bodies } = Matter;
+const { Engine, Render, Runner, World, Bodies, Body } = Matter;
 
 const width = 600;
 const height = 600;
@@ -21,15 +21,14 @@ Runner.run(Runner.create(), engine);
 
 //Walls
 const walls = [
-  Bodies.rectangle(width / 2, 0, width, 40, { isStatic: true }),
-  Bodies.rectangle(width / 2, height, width, 40, { isStatic: true }),
-  Bodies.rectangle(0, height / 2, 40, height, { isStatic: true }),
-  Bodies.rectangle(width, height / 2, 40, height, { isStatic: true })
+  Bodies.rectangle(width / 2, 0, width, 2, { isStatic: true }),
+  Bodies.rectangle(width / 2, height, width, 2, { isStatic: true }),
+  Bodies.rectangle(0, height / 2, 2, height, { isStatic: true }),
+  Bodies.rectangle(width, height / 2, 2, height, { isStatic: true })
 ];
 World.add(world, walls);
 
 //Maze generation
-
 const shuffle = arr => {
   let counter = arr.length;
   while (counter > 0) {
@@ -134,6 +133,7 @@ verticals.forEach((row, rowIndex) => {
   });
 });
 
+//Goal
 const goal = Bodies.rectangle(
   width - unitLenght / 2,
   height - unitLenght / 2,
@@ -144,3 +144,23 @@ const goal = Bodies.rectangle(
   }
 );
 World.add(world, goal);
+
+//Ball
+const ball = Bodies.circle(unitLenght / 2, unitLenght / 2, unitLenght / 4);
+World.add(world, ball);
+
+document.addEventListener("keydown", event => {
+  const { x, y } = ball.velocity;
+  if (event.key === "ArrowUp" || event.which === 38) {
+    Body.setVelocity(ball, { x, y: y - 5 });
+  }
+  if (event.key === "ArrowRight" || event.which === 39) {
+    Body.setVelocity(ball, { x: x + 5, y });
+  }
+  if (event.key === "ArrowDown" || event.which === 40) {
+    Body.setVelocity(ball, { x, y: y + 5 });
+  }
+  if (event.key === "ArrowLeft" || event.which === 37) {
+    Body.setVelocity(ball, { x: x - 5, y });
+  }
+});
