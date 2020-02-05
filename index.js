@@ -3,6 +3,7 @@ const { Engine, Render, Runner, World, Bodies } = Matter;
 const width = 600;
 const height = 600;
 const cells = 3;
+const unitLenght = width / cells;
 
 const engine = Engine.create();
 const { world } = engine;
@@ -89,7 +90,27 @@ const stepThroughCell = (row, column) => {
     } else if (direction === "down") {
       horizontals[row][column] = true;
     }
+    stepThroughCell(nextRow, nextColumn);
   }
 };
 
 stepThroughCell(startRow, startColumn);
+
+horizontals.forEach((row, rowIndex) => {
+  row.forEach((open, columnIndex) => {
+    if (open) {
+      return;
+    }
+
+    const wall = Bodies.rectangle(
+      columnIndex * unitLenght + unitLenght / 2,
+      rowIndex * unitLenght + unitLenght,
+      unitLenght,
+      10,
+      {
+        isStatic: true
+      }
+    );
+    World.add(world, wall);
+  });
+});
