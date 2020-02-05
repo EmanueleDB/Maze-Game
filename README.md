@@ -5,4 +5,4 @@
 ##  Goals of the project
 ### Mainly personal practice
 
-## [Play the Game]() and have fun!!!
+## [Play the Game](https://maze-fun-game.netlify.com/) and have fun!!!
