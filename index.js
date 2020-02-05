@@ -1,7 +1,7 @@
 const { Engine, Render, Runner, World, Bodies, Body, Events } = Matter;
 
-const cellsHorizontal = 14;
-const cellsVertical = 10;
+const cellsHorizontal = 20;
+const cellsVertical = 14;
 const width = window.innerWidth;
 const height = window.innerHeight;
 
@@ -155,7 +155,7 @@ const goal = Bodies.rectangle(
     label: "goal",
     isStatic: true,
     render: {
-      fillStyle: "green"
+      fillStyle: "lightblue"
     }
   }
 );
@@ -166,23 +166,23 @@ ballRadius = Math.min(unitLenghtX, unitLenghtY) / 4;
 const ball = Bodies.circle(unitLenghtX / 2, unitLenghtY / 2, ballRadius, {
   label: "ball",
   render: {
-    fillStyle: "blue"
+    fillStyle: "yellow"
   }
 });
 World.add(world, ball);
 
 document.addEventListener("keydown", event => {
   const { x, y } = ball.velocity;
-  if (event.key === "ArrowUp" || event.which === 38) {
+  if (event.key === "ArrowUp" || event.which === 38 || event.which === 87) {
     Body.setVelocity(ball, { x, y: y - 5 });
   }
-  if (event.key === "ArrowRight" || event.which === 39) {
+  if (event.key === "ArrowRight" || event.which === 39 || event.which === 68) {
     Body.setVelocity(ball, { x: x + 5, y });
   }
-  if (event.key === "ArrowDown" || event.which === 40) {
+  if (event.key === "ArrowDown" || event.which === 40 || event.which === 83) {
     Body.setVelocity(ball, { x, y: y + 5 });
   }
-  if (event.key === "ArrowLeft" || event.which === 37) {
+  if (event.key === "ArrowLeft" || event.which === 37 || event.which === 65) {
     Body.setVelocity(ball, { x: x - 5, y });
   }
 });
